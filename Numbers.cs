@@ -1,4 +1,4 @@
-namespace Clock
+namespace dotClock
 {
     internal static class Numbers
     {
