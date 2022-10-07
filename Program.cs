@@ -3,13 +3,24 @@ using System.Threading;
 
 Console.Clear();
 Console.CursorVisible = false;
-draw_dot();
 
 string _last_datetime = "------";
+bool _dot = false;
 
 while (true)
 {
     string _current_datetime = DateTime.Now.ToString("HHmmss");
+
+    if (!_dot && Convert.ToInt32(_current_datetime[_current_datetime.Length-1].ToString())%2==0)
+    {
+        draw_dot(_dot);
+        _dot = true;
+    }
+    else if (_dot && Convert.ToInt32(_current_datetime[_current_datetime.Length - 1].ToString()) % 2 != 0)
+    {
+        draw_dot(_dot);
+        _dot = false;
+    }
 
     if (_last_datetime != _current_datetime)
     {
@@ -29,7 +40,6 @@ void drawNumber(int _number, int _position)
 {
     int _offset = getOffset(_position);
     char[][] _nummber_array = Clock.Numbers.get_number(_number);
-    draw_dot();
     drawArray(_offset, _nummber_array);
 }
 
@@ -64,20 +74,35 @@ int getOffset(int _position)
     }
 }
 
-void draw_dot()
+void draw_dot(bool _clear)
 {
-    char[][] _array_dot = new char[][] {
-    new char[] { ' ',' ',' ',' ' },
-    new char[] { ' ','#','#',' ' },
-    new char[] { ' ','#','#',' ' },
-    new char[] { ' ',' ',' ',' ' },
-    new char[] { ' ',' ',' ',' ' },
-    new char[] { ' ',' ',' ',' ' },
-    new char[] { ' ',' ',' ',' ' },
-    new char[] { ' ','#','#',' ' },
-    new char[] { ' ','#','#',' ' },
-    new char[] { ' ',' ',' ',' ' },
-    };
+    char[][] _array_dot = new char[][]{
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ','#','#',' ' },
+        new char[] { ' ','#','#',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ','#','#',' ' },
+        new char[] { ' ','#','#',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        };
+    if (_clear)
+    {
+        _array_dot = new char[][] {
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        new char[] { ' ',' ',' ',' ' },
+        };
+    }
     drawArray(15, _array_dot);
     drawArray(36, _array_dot);
 }
