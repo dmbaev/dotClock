@@ -4,7 +4,7 @@ using System.Threading;
 Console.Clear();
 Console.CursorVisible = false;
 
-draw_mark();
+drawMark();
 
 string _last_datetime = "------";
 bool _dot = false;
@@ -13,15 +13,10 @@ while (true)
 {
     string _current_datetime = DateTime.Now.ToString("HHmmss");
 
-    if (!_dot && Convert.ToInt32(_current_datetime[_current_datetime.Length-1].ToString())%2==0)
+    if ((!_dot && Convert.ToInt32(_current_datetime[_current_datetime.Length-1].ToString())%2==0) 
+        || (_dot && Convert.ToInt32(_current_datetime[_current_datetime.Length - 1].ToString()) % 2 != 0))
     {
-        _dot = !_dot;
-        draw_dot(_dot);
-    }
-    else if (_dot && Convert.ToInt32(_current_datetime[_current_datetime.Length - 1].ToString()) % 2 != 0)
-    {
-        _dot = !_dot;
-        draw_dot(_dot);
+        drawDot();
     }
 
     if (_last_datetime != _current_datetime)
@@ -76,14 +71,15 @@ int getOffset(int _position)
     }
 }
 
-void draw_dot(bool _dot)
+void drawDot()
 {
+    _dot = !_dot;
     char[][] _array_dot = dotClock.dots.get_dot(_dot);
     drawArray(15, _array_dot);
     drawArray(36, _array_dot);
 }
 
-void draw_mark()
+void drawMark()
 {
     Console.ForegroundColor = ConsoleColor.Magenta;
     Console.SetCursorPosition(0, 15);
