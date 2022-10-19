@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading;
 
+get_number getNumber = dotClock.Numbers.get_number;
+get_dot getDot = dotClock.dots.get_dot;
+
 Console.Clear();
 Console.CursorVisible = false;
 
@@ -36,7 +39,7 @@ while (true)
 void drawNumber(int _number, int _position)
 {
     int _offset = getOffset(_position);
-    char[][] _nummber_array = dotClock.Numbers.get_number(_number);
+    char[][] _nummber_array = getNumber(_number);
     drawArray(_offset, _nummber_array);
 }
 
@@ -74,7 +77,7 @@ int getOffset(int _position)
 void drawDot()
 {
     _dot = !_dot;
-    char[][] _array_dot = dotClock.dots.get_dot(_dot);
+    char[][] _array_dot = getDot(_dot);
     drawArray(15, _array_dot);
     drawArray(36, _array_dot);
 }
@@ -84,5 +87,8 @@ void drawMark()
     Console.ForegroundColor = ConsoleColor.Magenta;
     Console.SetCursorPosition(0, 15);
     Console.Write("github.com/dmbaev");
-    Console.ForegroundColor = ConsoleColor.White;
+    Console.ResetColor();
 }
+
+internal delegate char[][] get_number(int _number);
+internal delegate char[][] get_dot(bool _dot);
