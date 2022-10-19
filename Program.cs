@@ -31,8 +31,9 @@ while (true)
                 drawNumber(Convert.ToInt32(_current_datetime[i].ToString()), i);
             }
         }
+        _last_datetime = _current_datetime;
     }
-    _last_datetime = _current_datetime;
+   
     Thread.Sleep(100);
 }
 
